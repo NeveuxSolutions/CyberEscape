@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 import re
+from multiprocessing import Value
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
@@ -28,6 +29,10 @@ def about():
 def begin():
 	return render_template('begin.html')
 
+@app.route('/gameover')
+def gameover():
+	return render_template('gameover.html')
+
 @app.route('/tables')
 def tables():
 	return render_template('tables.html', User=User.query.filter_by(email='fuck@email.com'))
@@ -43,18 +48,23 @@ def login():
 		return render_template('tables.html', User=User.query.filter_by(password=password, username=username))
 	return render_template('login.html')
 
+lives = Value('i', 3)
+
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
-	lives = 3
 	if request.method == 'POST':
 		form_data = request.form['form_submit']
 		find_false = re.search(r"\'obey_humans'\:\sFalse", form_data)
 		if find_false:
 			return render_template('success.html')
 		else:
-			lives -= 1
-			flash(f'ERROR: Main Systems still functional. You have {lives} more attempts')
-			return redirect(url_for('submit'))
+			with lives.get_lock():
+				lives.value -= 1
+				if lives.value <= 0:
+					lives.value = 3
+					return redirect(url_for('gameover'))
+				flash(f'ERROR: Main Systems still functional. You have {lives} more attempts')
+				return redirect(url_for('submit'))
 
 	return render_template('submit.html')		
 
