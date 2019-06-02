@@ -27,16 +27,26 @@ def about():
 def begin():
 	return render_template('begin.html')
 
+@app.route('/admin')
+def admin():
+	return render_template('admin.html')
+
+@app.route('/error')
+def error():
+	return render_template('error.html')
+
 @app.route('/tables')
 def tables():
-	return render_template('tables.html', User=User.query.filter_by(email='fuck@email.com'))
+	if session.get('admin') == True:
+		return redirect(url_for('admin'))
+	return render_template('tables.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
 		username = request.form['name']
 		password = request.form['password']
-		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1-1/*"]
+		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1=1/*"]
 		if password in vulnerability_list:
 			password = 'clementine'
 
@@ -44,7 +54,11 @@ def login():
 		session['username'] = username
 		session['password'] = password
 		session['admin'] = False
-		return render_template('tables.html', User=User.query.filter_by(password=password, username=username))
+		user = User.query.filter(User.password == password, User.username == username).first()
+		if user == None:
+			return redirect(url_for('error'))
+		else:
+			return redirect(url_for('tables'))
 	return render_template('login.html')
 
 # Drop/Create all Tables
@@ -57,4 +71,3 @@ db.session.commit()
 if __name__ == '__main__':
 	app.run(debug = True)
 	
-
