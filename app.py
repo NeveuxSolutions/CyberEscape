@@ -40,7 +40,7 @@ def tables():
 	if session.get('admin') == True:
 		return redirect(url_for('admin'))
 	return render_template('tables.html')
-
+ 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
