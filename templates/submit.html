@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Unit 26662 - "Maeve"</h2>
+
+{% with messages  = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <h2>{{ message }}</h2>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<form action="{{ request.path }}" method="POST" class="form-signin">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Source Code</label>
+        <textarea name="form_submit" class="form-control" id="exampleFormControlTextarea1" rows="20">
+            class Maeve(Host):
+                    def __init__(self, name, gender, occupation):
+                        self.name = name
+                        self.gender = gender
+                        self.occupation = occupation
+                    
+                    functionality = {
+                        'obey_humans': True,
+                    }
+            
+        </textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+<h2>{{ key }}</h2>
+{% endblock content %}
+
