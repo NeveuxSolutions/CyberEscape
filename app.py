@@ -64,7 +64,7 @@ def login():
 # Drop/Create all Tables
 db.drop_all()
 db.create_all()
-user = User('maeve', 'clementine')
+user = User('Ma3ve', 'clementine')
 db.session.add(user)
 db.session.commit()
 
