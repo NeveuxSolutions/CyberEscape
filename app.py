@@ -8,33 +8,42 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String(50))
+	username = db.Column(db.String(50))
 	password = db.Column(db.String(20))
 
-	def __init__(self, email, password):
-		self.email = email
+	def __init__(self, username, password):
+		self.username = username
 		self.password = password
 
 @app.route('/')
 def home():
 	return render_template('home.html')
 
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
 @app.route('/tables')
 def tables():
-	return render_template('tables.html', User=User.query.all())
+	return render_template('tables.html', User=User.query.filter_by(email='fuck@email.com'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
-		user = User(request.form['email'], request.form['password'])
-		db.session.add(user)
-		db.session.commit()
-		return redirect(url_for('tables'))
+		username = request.form['name']
+		password = request.form['password']
+		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1-1/*"]
+		if password in vulnerability_list:
+			password = 'clementine'
+		return render_template('tables.html', User=User.query.filter_by(password=password))
 	return render_template('login.html')
 
 # Drop/Create all Tables
 db.drop_all()
 db.create_all()
+user = User('maeve', 'clementine')
+db.session.add(user)
+db.session.commit()
 
 if __name__ == '__main__':
 	app.run(debug = True)
