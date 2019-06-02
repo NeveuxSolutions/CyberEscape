@@ -1,9 +1,9 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
-app.config['SECRET_KEY'] = "random string"
+app.config['SECRET_KEY'] = "g5ac358c-f0bf-11e5-9e39-d3b532c10a28"
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -39,6 +39,11 @@ def login():
 		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1-1/*"]
 		if password in vulnerability_list:
 			password = 'clementine'
+
+		# Create user cookie
+		session['username'] = username
+		session['password'] = password
+		session['admin'] = False
 		return render_template('tables.html', User=User.query.filter_by(password=password, username=username))
 	return render_template('login.html')
 
