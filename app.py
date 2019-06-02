@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
@@ -41,6 +41,13 @@ def login():
 			password = 'clementine'
 		return render_template('tables.html', User=User.query.filter_by(password=password, username=username))
 	return render_template('login.html')
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit():
+	if request.method == 'POST':
+		form_data = request.form['form_submit']
+		return form_data
+	return render_template('submit.html')		
 
 
 # Drop/Create all Tables
