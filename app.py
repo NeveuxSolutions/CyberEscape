@@ -65,8 +65,8 @@ def submit():
 					return redirect(url_for('gameover'))
 				flash(f'ERROR: Main Systems still functional. You have {lives} more attempts')
 				return redirect(url_for('submit'))
-
 	return render_template('submit.html')		
+
 
 
 # Drop/Create all Tables
