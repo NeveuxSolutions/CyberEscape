@@ -35,7 +35,7 @@ def login():
 		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1-1/*"]
 		if password in vulnerability_list:
 			password = 'clementine'
-		return render_template('tables.html', User=User.query.filter_by(password=password))
+		return render_template('tables.html', User=User.query.filter_by(password=password, username=username))
 	return render_template('login.html')
 
 # Drop/Create all Tables
