@@ -1,8 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 import re
 from multiprocessing import Value
-
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
@@ -30,24 +29,23 @@ def about():
 def begin():
 	return render_template('begin.html')
 
-@app.route('/admin')
-def admin():
-	return render_template('admin.html')
-
 @app.route('/error')
 def error():
 	return render_template('error.html')
+
+@app.route('/wrong_password')
+def wrong_password():
+	return render_template('wrong_password.html')
 
 @app.route('/gameover')
 def gameover():
 	return render_template('gameover.html')
 
-
-@app.route('/tables')
+@app.route('/logged_in')
 def tables():
 	if session.get('admin') == True:
-		return redirect(url_for('admin'))
-	return render_template('tables.html')
+		return redirect(url_for('submit'))
+	return render_template('tables.html', user=session.get('username'))
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,6 +53,8 @@ def login():
 		username = request.form['name']
 		password = request.form['password']
 		vulnerability_list = ["' or 1=1--", "' or 1=1#", "' or 1=1/*"]
+		if username == 'Ma3ve' and password not in vulnerability_list and password != 'clementine':
+			return redirect(url_for('wrong_password'))
 		if password in vulnerability_list:
 			password = 'clementine'
 
@@ -71,7 +71,7 @@ def login():
 
 lives = Value('i', 3)
 
-@app.route('/submit', methods=['GET', 'POST'])
+@app.route('/admin', methods=['GET', 'POST'])
 def submit():
 	if request.method == 'POST':
 		form_data = request.form['form_submit']
@@ -84,11 +84,9 @@ def submit():
 				if lives.value <= 0:
 					lives.value = 3
 					return redirect(url_for('gameover'))
-				flash(f'ERROR: Main Systems still functional. You have {lives} more attempts')
+				flash(f'ERROR: Main Systems still functional. You have {lives.value} more attempts')
 				return redirect(url_for('submit'))
 	return render_template('submit.html')		
-
-
 
 # Drop/Create all Tables
 db.drop_all()
