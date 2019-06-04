@@ -61,7 +61,7 @@ def login():
 		# Create user cookie
 		session['username'] = username
 		session['password'] = password
-		session['admin'] = False
+		session['admin'] = True
 		user = User.query.filter(User.password == password, User.username == username).first()
 		if user == None:
 			return redirect(url_for('error'))
@@ -73,6 +73,8 @@ lives = Value('i', 3)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def submit():
+	if session.get('admin') != True:
+		return redirect(url_for('login'))
 	if request.method == 'POST':
 		form_data = request.form['form_submit']
 		find_false = re.search(r"\'obey_humans'\:\sFalse", form_data)
