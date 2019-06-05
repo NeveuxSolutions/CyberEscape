@@ -49,10 +49,14 @@ git clone https://github.com/NeveuxSolutions/TheReminder.git
 
 Now just a few configurations and we're good to go.
 
-Mac/Linux
+Unix Bash (Mac/Linux)
 
 ```
 export FLASK_APP=app.py
+```
+Windows CMD
+```
+set FLASK_APP=app.py
 ```
 Then 
 ```
