@@ -60,10 +60,10 @@ def gameover():
 	return render_template('gameover.html')
 
 @app.route('/logged_in')
-def tables():
+def logged_in():
 	if session.get('admin') == True:
 		return redirect(url_for('submit'))
-	return render_template('tables.html', user=session.get('username'))
+	return render_template('logged_in.html', user=session.get('username'))
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -84,11 +84,11 @@ def login():
 		if user == None:
 			return redirect(url_for('error'))
 		else:
-			return redirect(url_for('tables'))
+			return redirect(url_for('logged_in'))
 	return render_template('login.html')
 
 @app.route('/admin', methods=['GET', 'POST'])
-def submit():
+def admin():
 	if session.get('admin') != True:
 		return redirect(url_for('login'))
 	if request.method == 'POST':
@@ -103,8 +103,8 @@ def submit():
 					lives.value = 3
 					return redirect(url_for('gameover'))
 				flash(f'ERROR: Main Systems still functional. You have {lives.value} more attempts')
-				return redirect(url_for('submit'))
-	return render_template('submit.html')		
+				return redirect(url_for('admin'))
+	return render_template('admin.html')		
 
 #-------------------
 # Main
