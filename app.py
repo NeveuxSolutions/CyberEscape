@@ -3,19 +3,37 @@ from flask_sqlalchemy import SQLAlchemy
 import re
 from multiprocessing import Value
 
+#-------------------
+# Configuration
+#-------------------
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
 app.config['SECRET_KEY'] = "g5ac358c-f0bf-11e5-9e39-d3b532c10a28"
 db = SQLAlchemy(app)
+lives = Value('i', 3)
 
+#-------------------
+# Database Model
+#-------------------
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(50))
-	password = db.Column(db.String(20))
+	username = db.Column(db.String(50), unique=True, nullable=False)
+	password = db.Column(db.String(20), unique=True, nullable=False)
 
 	def __init__(self, username, password):
 		self.username = username
 		self.password = password
+
+# Drop/Create all Tables
+db.drop_all()
+db.create_all()
+user = User('Ma3ve', 'clementine')
+db.session.add(user)
+db.session.commit()
+
+#-------------------
+# Routes
+#-------------------
 
 @app.route('/')
 def home():
@@ -42,10 +60,10 @@ def gameover():
 	return render_template('gameover.html')
 
 @app.route('/logged_in')
-def tables():
+def logged_in():
 	if session.get('admin') == True:
 		return redirect(url_for('submit'))
-	return render_template('tables.html', user=session.get('username'))
+	return render_template('logged_in.html', user=session.get('username'))
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,7 +76,7 @@ def login():
 		if password in vulnerability_list:
 			password = 'clementine'
 
-		# Create user cookie
+		# Create user session
 		session['username'] = username
 		session['password'] = password
 		session['admin'] = True
@@ -66,13 +84,11 @@ def login():
 		if user == None:
 			return redirect(url_for('error'))
 		else:
-			return redirect(url_for('tables'))
+			return redirect(url_for('logged_in'))
 	return render_template('login.html')
 
-lives = Value('i', 3)
-
 @app.route('/admin', methods=['GET', 'POST'])
-def submit():
+def admin():
 	if session.get('admin') != True:
 		return redirect(url_for('login'))
 	if request.method == 'POST':
@@ -87,16 +103,12 @@ def submit():
 					lives.value = 3
 					return redirect(url_for('gameover'))
 				flash(f'ERROR: Main Systems still functional. You have {lives.value} more attempts')
-				return redirect(url_for('submit'))
-	return render_template('submit.html')		
+				return redirect(url_for('admin'))
+	return render_template('admin.html')		
 
-# Drop/Create all Tables
-db.drop_all()
-db.create_all()
-user = User('Ma3ve', 'clementine')
-db.session.add(user)
-db.session.commit()
-
+#-------------------
+# Main
+#-------------------
 if __name__ == '__main__':
 	app.run(debug = True)
 	
