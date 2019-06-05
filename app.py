@@ -62,7 +62,7 @@ def gameover():
 @app.route('/logged_in')
 def logged_in():
 	if session.get('admin') == True:
-		return redirect(url_for('submit'))
+		return redirect(url_for('admin'))
 	return render_template('logged_in.html', user=session.get('username'))
  
 @app.route('/login', methods=['GET', 'POST'])
