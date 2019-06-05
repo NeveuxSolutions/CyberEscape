@@ -79,7 +79,7 @@ def login():
 		# Create user session
 		session['username'] = username
 		session['password'] = password
-		session['admin'] = True
+		session['admin'] = False
 		user = User.query.filter(User.password == password, User.username == username).first()
 		if user == None:
 			return redirect(url_for('error'))
