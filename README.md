@@ -4,6 +4,7 @@ This is the first installment in the series. The objective is simple, follow the
 
 
 ![Alt Text](https://github.com/NeveuxSolutions/CyberEscape/blob/master/MaevesEscape/docs/LandingPage.PNG)
+![Alt Text](https://github.com/NeveuxSolutions/CyberEscape/blob/master/MaevesEscape/docs/SignIn.PNG)
 
 ## Getting Started
 
