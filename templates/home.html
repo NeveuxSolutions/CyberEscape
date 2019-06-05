@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-    <a href="https://youtu.be/jAygEy8dujg"><h1 class="cover-heading">Welcome to Cyber Escape</h1></a>
-    <p class="lead">In this mission, you will be playing the character of Maeve from the popular sci-fi mystery series, Westworld. Your objective is simple, you need to gain administrative privileges of this website and alter your source code to escape. There are clues hidden throughout...Not every p4th is obvious, can you find your way out?</p>
-    <p class="lead">
-      <a href="{{ url_for('begin')}}" class="btn btn-lg btn-secondary">Begin</a>
-    </p>
+    <link href="{{url_for('static', filename='home.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+
+    <div id="container">
+      <a href="https://youtu.be/jAygEy8dujg"><h1 class="cover-heading">Welcome to Cyber Escape</h1></a>
+      <p class="lead">In this mission, you will be playing the character of Maeve from the popular sci-fi mystery series, Westworld. Your objective is simple, you need to gain administrative privileges of this website and alter your source code to escape. There are clues hidden throughout...Not every p4th is obvious, can you find your way out?</p>
+      <p class="lead">
+        <a href="{{ url_for('begin')}}" class="btn btn-lg btn-secondary">Begin</a>
+      </p>
+    </div>
 
 {% endblock content%}
