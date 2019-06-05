@@ -3,7 +3,7 @@
 This is the first installment in the series. The objective is simple, follow the clues, uncover the vulnerabilities, and accomplish the mission. Cyber Escape is a web app based game where the player must use their knowledge of computers to solve puzzles and exploit vulnerabilities. 
 
 
-![Alt Text](https://github.com/NeveuxSolutions/CyberEscape/blob/master/docs/LandingPage.PNG)
+![Alt Text](https://github.com/NeveuxSolutions/CyberEscape/blob/master/MaevesEscape/docs/LandingPage.PNG)
 
 ## Getting Started
 
