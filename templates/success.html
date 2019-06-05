@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1>Success</h1>
-    <div align="middle"><iframe display:block width="853" height="480" src="https://www.youtube.com/embed/ZGkCw9N1pqM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<link href="{{url_for('static', filename='success.css')}}" rel="stylesheet">
+<div class="container">
+        <h1>Success</h1>
+        <div align="middle" class="vid"><iframe display:block width="853" height="480" src="https://www.youtube.com/embed/ZGkCw9N1pqM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
 
 {% endblock content%}

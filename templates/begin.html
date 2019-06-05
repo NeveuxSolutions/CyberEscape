@@ -1,8 +1,9 @@
 {% extends "layout.html"%}
 {% block content%}
-    <h2>Everything in this world is Magic, except for the Magician</h2>
-    <p>The source of a Magician's magic is in misdirection</p>
+    <link href="{{url_for('static', filename='begin.css')}}" rel="stylesheet">
+    <h2 id="tag-line">"Everything in this world is Magic, except for the Magician"</h2>
+    <p class="text">The source of a Magician's magic is in misdirection</p>
     <br/>
-    <p>Uncover his source to see the truth</p>
+    <p class="text">Uncover his source to see the truth</p>
     <!-- flag = {Ma3ve} -->
 {% endblock content%}

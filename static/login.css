@@ -1,0 +1,7 @@
+body{
+    background: url(./images/login-background.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Rubik', sans-serif;
+}
