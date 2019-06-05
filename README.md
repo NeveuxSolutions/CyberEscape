@@ -2,7 +2,7 @@
 
 Cyber Escape is a Flask web app series that encapsulates Cyber Security principles in a fun and engaging game setting. The players are presented with a situation in which they must find the intended vulnerabilities, exploit these vulnerabilities, and accomplish the current situations objective. 
 
-# About Cyber Escape
+# About
 
 This is the first installment in the series. The objective is simple, follow the clues, uncover the vulnerabilities, and accomplish the mission. Cyber Escape is a web app based game where the player must use their knowledge of computers to solve puzzles and exploit vulnerabilities. 
 
@@ -69,8 +69,8 @@ localhost:5000
 
 ## Built With
 
-* [TinyDB](https://tinydb.readthedocs.io/en/latest/) - The database framework used
-* [Yagmail](https://buildmedia.readthedocs.org/media/pdf/yagmail/latest/yagmail.pdf) - The email framework used
+* [Flask](http://flask.pocoo.org/) - The web app framework used
+* [SQLAlchemy](https://www.sqlalchemy.org/) - The database framework used
 
 ## Authors
 
