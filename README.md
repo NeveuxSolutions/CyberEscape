@@ -74,5 +74,5 @@ localhost:5000
 
 ## Authors
 
-* **Spencer Neveux** - *Sole Developer* 
+* **Spencer Neveux** - *Developer* 
 
