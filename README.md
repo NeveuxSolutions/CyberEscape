@@ -58,7 +58,6 @@ Windows CMD
 ```
 set FLASK_APP=app.py
 ```
-Then 
 ```
 flask run
 ```
