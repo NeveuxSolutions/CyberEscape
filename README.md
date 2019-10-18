@@ -57,9 +57,6 @@ set FLASK_APP=app.py
 ```
 Windows CMD
 ```
-
-```
-```
 flask run
 ```
 Now just open a web browser and navigate to 
