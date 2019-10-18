@@ -53,10 +53,11 @@ Unix Bash (Mac/Linux)
 
 ```
 export FLASK_APP=app.py
+set FLASK_APP=app.py
 ```
 Windows CMD
 ```
-set FLASK_APP=app.py
+
 ```
 ```
 flask run
